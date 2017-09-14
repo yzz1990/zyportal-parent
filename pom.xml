@@ -54,6 +54,7 @@
     </pluginRepositories>-->
 <!--properties标签定义变量-->
     <properties>
+        <!--想使用不同版本的JDK-->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dubbo.version>2.8.4</dubbo.version>
