@@ -2,48 +2,57 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <!--modelVersion：声明项目描述符遵循哪一个POM模型版本。模型本身的版本很少改变，虽然如此，但它仍然是必不可少的，
+   这是为了当Maven引入了新的特性或者其他模型变更的时候，确保稳定性。声明项目描述符遵循哪一个POM模型版本。模型本身的版本很少改变，虽然如此，但它仍然是必不可少的，这是为了当Maven引入了新的特性或者其他模型变更的时候，确保稳定性。-->
     <modelVersion>4.0.0</modelVersion>
-
+    <!--groupId:公司名称、组织名称、项目开发者，配置时生成路径也是由此生成（包名，如com.XXX）。-->
     <groupId>com.zkzy</groupId>
+    <!--artifactId：项目通用名称。-->
     <artifactId>zyportal-parent</artifactId>
+    <!--version：对应项目版本号。-->
     <version>5.0.0-SNAPSHOT</version>
+    <!--modules:模块（有时称作子项目） 被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的相对路径，
+    一个项目有多个平级模块，也叫做多重模块，或者合成项目，modules实现平级模块管理-->
     <modules>
         <module>zyportal-common</module>
         <module>zyportal-system</module>
         <module>zyportal-client</module>
     </modules>
+    <!--packaging:项目产生的构件类型，例如jar、war、ear、pom。插件可以创建他们自己的构件类型，所以前面列的不是全部构件类型-->
     <packaging>pom</packaging>
+    <!--name:用户描述项目的名称，可选。-->
     <name>${project.artifactId}</name>
     <description>The parent project of voyage</description>
     <inceptionYear>2016</inceptionYear>
-
+    <!--父项目的坐标。如果项目中没有规定某个元素的值，那么父项目中的对应值即为项目的默认值。 坐标包括group ID，artifact ID和 version。-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.1.RELEASE</version>
         <relativePath/>
     </parent>
-
+    <!--发现依赖和扩展的远程仓库列表。-->
     <repositories>
-        <repository>
+       <!-- <repository>
             <id>nexus</id>
             <name>nexus</name>
             <url>http://115.28.32.143:8081/repository/maven-public/</url>
-        </repository>
+        </repository>-->
         <repository>
             <id>local</id>
             <url>http://192.168.1.241:8081/nexus/content/repositories/public/</url>
         </repository>
     </repositories>
-
-    <pluginRepositories>
+    <!--发现插件的远程仓库列表，这些插件用于构建和报表-->
+    <!--<pluginRepositories>
+        &lt;!&ndash;包含需要连接到远程插件仓库的信息.参见repositories/repository元素&ndash;&gt;
         <pluginRepository>
             <id>nexus</id>
             <name>nexus</name>
             <url>http://115.28.32.143:8081/repository/maven-public/</url>
         </pluginRepository>
-    </pluginRepositories>
-
+    </pluginRepositories>-->
+<!--properties标签定义变量-->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,9 +92,25 @@
         <poi-ooxml.version>3.12</poi-ooxml.version>
         <jxl.version>2.5.7</jxl.version>
     </properties>
-
+    <!-- 继承自该项目的所有子项目的默认依赖信息。这部分的依赖信息不会被立即解析,而是当子项目声明一个依赖
+    （必须描述group ID和 artifact ID信息），如果group ID和artifact ID以外的一些信息没有描述，则通过group ID和artifact ID 匹配到这里的依赖，并使用这里的依赖信息。
+     1)dependencies:自动引入声明在dependencies里的所有依赖，并默认被所有的子项目继承。如果项目中不写依赖项，则会从父项目
+         继承（属性全部继承）声明在父项目dependencies里的依赖项。
+     2)dependencyManagement里只是声明依赖，并不实现引入，因此子项目需要显示的声明需要的依赖。如果不在子项目中声明依赖，
+        是不会从父项目中继承的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取
+        自父pom;如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。同时dependencyManagement让子项目引用依赖，而不用显示的列
+        出版本号。Maven会沿着父子层次向上走，直到找到一个拥有dependencyManagement元素的项目，然后它就会使用在这个
+        dependencyManagement元素中指定的版本号,实现所有子项目使用的依赖项为同一版本。
+     3）dependencyManagement 中的 dependencies 并不影响项目的依赖项；而独立dependencies元素则影响项目的依赖项。只有当外
+        层的dependencies元素中没有指明版本信息时，dependencyManagement 中的 dependencies 元素才起作用。一个是项目依赖，一个是maven
+        项目多模块情况时作依赖管理控制的。
+    -->
     <dependencyManagement>
+        <!--dependencies:依赖,jar包管理
+            自动引入声明在dependencies里的所有依赖，并默认被所有的子项目继承。如果项目中不写依赖项，则会从父项目继承（属性全部继承）声明在父项目dependencies里的依赖项
+        -->
         <dependencies>
+            <!--dependency:具体的依赖项-->
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
@@ -311,23 +336,29 @@
 
         </dependencies>
     </dependencyManagement>
-
+    <!--distributionManagement:项目分发信息，在执行mvn deploy后表示要发布的位置。有了这些信息就可以把网站部署到远程服务器或者把构件部署到远程仓库。-->
     <distributionManagement>
+        <!--部署项目产生的构件到远程仓库需要的信息-->
         <repository>
             <id>maven-releases</id>
             <url>http://115.28.32.143:8081/repository/maven-releases/</url>
         </repository>
+        <!--构件的快照部署到哪里？如果没有配置该元素，默认部署到repository元素配置的仓库，参见distributionManagement/repository元素-->
         <snapshotRepository>
             <id>maven-snapshots</id>
             <url>http://115.28.32.143:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
+    <!--全局配置（project build），针对当前项目的所有情况都有效。自定义配置（profile build）针对不同的profile配置-->
     <build>
+        <!--用于包含或者排除某些资源文件-->
         <resources>
             <resource>
+                <!--build目标文件的存放目录，就是定义resource文件所在的文件夹，默认在${basedir}/target目录-->
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
+               <!--includes：指定哪些文件将被匹配，以*作为通配符-->
                 <includes>
                     <include>**/application*.yml</include>
                     <include>**/*.properties</include>
@@ -336,6 +367,7 @@
             </resource>
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
+                <!--指定哪些文件将被忽略-->
                 <excludes>
                     <exclude>**/application*.yml</exclude>
                     <exclude>**/*.properties</exclude>
