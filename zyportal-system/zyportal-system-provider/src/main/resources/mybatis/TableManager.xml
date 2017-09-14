@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkzy.zyportal.system.provider.mapper.TableManagerMapper">
+    <resultMap id="tables" type="com.zkzy.zyportal.system.api.entity.EvaluationTables">
+        <result column="TABLE_NAME" property="tablename" jdbcType="VARCHAR"/>
+        <result column="CREATED" property="createtime" jdbcType="VARCHAR"/>
+        <result column="LAST_ANALYZED" property="modifytime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="tableproperty" type="com.zkzy.zyportal.system.api.entity.SystemTableProperty">
+        <result column="COLUMN_NAME" property="fieldname" jdbcType="VARCHAR"/>
+        <result column="COMMENTS" property="fieldesc" jdbcType="VARCHAR"/>
+        <result column="DATA_TYPE" property="datatype" jdbcType="VARCHAR"/>
+        <result column="DATA_LENGTH" property="datalength" jdbcType="DECIMAL"/>
+        <result column="NULLABLE" property="isnull" jdbcType="VARCHAR"/>
+        <result column="DATA_DEFAULT" property="defaultvalue" jdbcType="VARCHAR"/>
+        <result column="DATA_PRECISION" property="pointlength" jdbcType="DECIMAL"/>
+        <result column="DATA_SCALE" property="dataScale" jdbcType="DECIMAL"/>
+        <result column="TABLE_NAME" property="tablename" jdbcType="VARCHAR"/>
+        <result column="COLUMN_ID" property="columnid" jdbcType="DECIMAL"/>
+        <result column="PKEY" property="pkey" jdbcType="DECIMAL"/>
+
+    </resultMap>
+    <select id="selectTables" resultMap="tables">
+        <!--SELECT TABLE_NAME  FROM USER_TABLES-->
+        select a.TABLE_NAME,b.CREATED,a.LAST_ANALYZED from USER_TABLES a,USER_OBJECTS b where a.TABLE_NAME =
+        b.OBJECT_NAME
+    </select>
+    <update id="altertablename">
+        <!--alter table user add column ${column} varchar(255) after username-->
+    </update>
+
+    <select id="getproperties" resultMap="tableproperty" parameterType="java.lang.String">
+      select
+      a.COLUMN_NAME,
+      b.COMMENTS,
+      a.DATA_TYPE,
+      a.DATA_LENGTH,
+      a.NULLABLE,
+      a.DATA_DEFAULT,
+      a.DATA_PRECISION,
+      a.DATA_SCALE,
+      a.TABLE_NAME,
+      a.COLUMN_ID
+      from all_tab_cols a, USER_COL_COMMENTS b
+      where a.TABLE_NAME=b.TABLE_NAME
+      and a.COLUMN_NAME = b.COLUMN_NAME
+      and  a.TABLE_NAME= #{tablename,jdbcType=VARCHAR}
+  </select>
+    <select id="selectPkey" resultMap="tableproperty" parameterType="java.lang.String">
+        select cu.COLUMN_NAME from user_cons_columns cu, user_constraints au where
+        cu.constraint_name = au.constraint_name and au.constraint_type = 'P' and au.TABLE_NAME= #{tablename,jdbcType=VARCHAR}
+    </select>
+    <update id="createTable" parameterType="java.lang.String">
+        <if test="_parameter != null">
+            '${_parameter}'
+        </if>
+    </update>
+    <select id="findTableBytablenam" resultMap="tables" parameterType="java.lang.String">
+        select a.TABLE_NAME,b.CREATED,a.LAST_ANALYZED from USER_TABLES a,USER_OBJECTS b
+        where a.TABLE_NAME = b.OBJECT_NAME and TABLE_NAME = #{tablename,jdbcType=VARCHAR}
+    </select>
+    <update id="dropColumn" parameterType="java.lang.String">
+ALTER TABLE #{tablename,jdbcType=VARCHAR} DROP COLUMN #{columnName,jdbcType=VARCHAR} ;
+    </update>
+    <update id="dropTable">
+        DROP TABLE #{tablename,jdbcType=VARCHAR}
+    </update>
+</mapper>

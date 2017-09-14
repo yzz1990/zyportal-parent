@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkzy.zyportal.system.provider.mapper.WeChatKFMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.zkzy.zyportal.system.api.entity.WeChatKFMessage" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TOUSER" property="touser" jdbcType="VARCHAR" />
+    <result column="MSGTYPE" property="msgtype" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="MEDIA_ID" property="mediaId" jdbcType="VARCHAR" />
+    <result column="THUMB_MEDIA_ID" property="thumbMediaId" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="MUSICURL" property="musicurl" jdbcType="VARCHAR" />
+    <result column="HQMUSICURL" property="hqmusicurl" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="PICURL" property="picurl" jdbcType="VARCHAR" />
+    <result column="WECHATID" property="wechatid" jdbcType="VARCHAR" />
+    <result column="SENDTIME" property="sendtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TOUSER, MSGTYPE, CONTENT, MEDIA_ID, THUMB_MEDIA_ID, TITLE, DESCRIPTION, MUSICURL, 
+    HQMUSICURL, URL, PICURL, WECHATID, SENDTIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WX_KFSENDMESSAGE_B
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, TOUSER, MSGTYPE,
+      CONTENT, MEDIA_ID, THUMB_MEDIA_ID,
+      TITLE, DESCRIPTION, MUSICURL,
+      HQMUSICURL, URL, PICURL,
+      WECHATID, SENDTIME
+    from WX_KFSENDMESSAGE_B
+    where 1=1
+    ${_parameter}
+    ORDER BY SENDTIME ASC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WX_KFSENDMESSAGE_B
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zkzy.zyportal.system.api.entity.WeChatKFMessage" >
+    insert into WX_KFSENDMESSAGE_B (ID, TOUSER, MSGTYPE, 
+      CONTENT, MEDIA_ID, THUMB_MEDIA_ID, 
+      TITLE, DESCRIPTION, MUSICURL, 
+      HQMUSICURL, URL, PICURL, 
+      WECHATID, SENDTIME)
+    values (#{id,jdbcType=VARCHAR}, #{touser,jdbcType=VARCHAR}, #{msgtype,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{mediaId,jdbcType=VARCHAR}, #{thumbMediaId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{musicurl,jdbcType=VARCHAR}, 
+      #{hqmusicurl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}, 
+      #{wechatid,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zkzy.zyportal.system.api.entity.WeChatKFMessage" >
+    insert into WX_KFSENDMESSAGE_B
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="touser != null" >
+        TOUSER,
+      </if>
+      <if test="msgtype != null" >
+        MSGTYPE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="mediaId != null" >
+        MEDIA_ID,
+      </if>
+      <if test="thumbMediaId != null" >
+        THUMB_MEDIA_ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="musicurl != null" >
+        MUSICURL,
+      </if>
+      <if test="hqmusicurl != null" >
+        HQMUSICURL,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="picurl != null" >
+        PICURL,
+      </if>
+      <if test="wechatid != null" >
+        WECHATID,
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="touser != null" >
+        #{touser,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null" >
+        #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null" >
+        #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbMediaId != null" >
+        #{thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatid != null" >
+        #{wechatid,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zkzy.zyportal.system.api.entity.WeChatKFMessage" >
+    update WX_KFSENDMESSAGE_B
+    <set >
+      <if test="touser != null" >
+        TOUSER = #{touser,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null" >
+        MSGTYPE = #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null" >
+        MEDIA_ID = #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbMediaId != null" >
+        THUMB_MEDIA_ID = #{thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        MUSICURL = #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        HQMUSICURL = #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        PICURL = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatid != null" >
+        WECHATID = #{wechatid,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME = #{sendtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zkzy.zyportal.system.api.entity.WeChatKFMessage" >
+    update WX_KFSENDMESSAGE_B
+    set TOUSER = #{touser,jdbcType=VARCHAR},
+      MSGTYPE = #{msgtype,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      MEDIA_ID = #{mediaId,jdbcType=VARCHAR},
+      THUMB_MEDIA_ID = #{thumbMediaId,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      MUSICURL = #{musicurl,jdbcType=VARCHAR},
+      HQMUSICURL = #{hqmusicurl,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      PICURL = #{picurl,jdbcType=VARCHAR},
+      WECHATID = #{wechatid,jdbcType=VARCHAR},
+      SENDTIME = #{sendtime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,15 @@
+1、rabbitmq配置
+   先安装otp_win64_20.0，在安装rabbitmq-server-3.6.10，重启机器
+   http://www.cnblogs.com/ericli-ericli/p/5902270.html
+   http://blog.csdn.net/lu1005287365/article/details/52315786
+   http://localhost:15672/#/users
+    guest/guest
+
+2、office在线预览解决方案
+    1、https://www.idocv.com/examples.html
+    2、https://cloud.baidu.com/doc/DOC/JavaSDK.html#DOC.20Java.20SDK.20.E7.AE.80.E4.BB.8B
+    3、使用OpenOffice/Aspose 将ppt、word、excel、txt类型的文件转换为pdf
+        pdf.js预览
+        http://blog.csdn.net/qq_28533563/article/details/72676425?locationNum=13&fps=1
+    4、本地预览地址
+        http://localhost:63342/zyportal5/vendors/pdfview/web/viewer2.html?f=http://localhost:63342/zyportal5/vendors/pdfview/web/1.pdf

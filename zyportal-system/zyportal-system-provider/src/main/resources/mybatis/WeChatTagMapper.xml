@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkzy.zyportal.system.provider.mapper.WeChatTagMapper" >
+  <resultMap id="BaseResultMap" type="com.zkzy.zyportal.system.api.entity.WeChatTag" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TAGID" property="tagid" jdbcType="INTEGER" />
+    <result column="TAGNAME" property="tagname" jdbcType="VARCHAR" />
+    <result column="WECHATID" property="wechatid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TAGID, TAGNAME, WECHATID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WX_TAG_B
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTagid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from WX_TAG_B
+    where TAGID = #{tagid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, TAGID, TAGNAME, WECHATID
+    from WX_TAG_B
+    where 1=1
+    ${_parameter}
+    ORDER BY TAGID ASC
+  </select>
+  <delete id="deleteByTag" parameterType="com.zkzy.zyportal.system.api.entity.WeChatTag" >
+    delete from WX_TAG_B
+    where TAGID = #{tagid,jdbcType=INTEGER}
+    AND WECHATID = #{wechatid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByWeChatId" parameterType="java.lang.String" >
+    delete from WX_TAG_B
+    where WECHATID = #{wechatid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zkzy.zyportal.system.api.entity.WeChatTag" >
+    insert into WX_TAG_B (ID, TAGID, TAGNAME, 
+      WECHATID)
+    values (#{id,jdbcType=VARCHAR}, #{tagid,jdbcType=INTEGER}, #{tagname,jdbcType=VARCHAR},
+      #{wechatid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zkzy.zyportal.system.api.entity.WeChatTag" >
+    insert into WX_TAG_B
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="tagid != null" >
+        TAGID,
+      </if>
+      <if test="tagname != null" >
+        TAGNAME,
+      </if>
+      <if test="wechatid != null" >
+        WECHATID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tagid != null" >
+        #{tagid,jdbcType=INTEGER},
+      </if>
+      <if test="tagname != null" >
+        #{tagname,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatid != null" >
+        #{wechatid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByTag" parameterType="com.zkzy.zyportal.system.api.entity.WeChatTag" >
+    update WX_TAG_B
+    <set >
+      <if test="tagname != null" >
+        TAGNAME = #{tagname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TAGID = #{tagid,jdbcType=INTEGER}
+    AND WECHATID = #{wechatid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zkzy.zyportal.system.api.entity.WeChatTag" >
+    update WX_TAG_B
+    set TAGID = #{tagid,jdbcType=INTEGER},
+      TAGNAME = #{tagname,jdbcType=VARCHAR},
+      WECHATID = #{wechatid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- dubbo注解扫描包名 -->
+    <!--<dubbo:annotation package="cn.zhangxd.platform.mobile.client"/>-->
+
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ITripUserService" id="tripUserService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ICaptchaService" id="captchaService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ISystemService" id="systemService"/>
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ISystemUserService" id="systemUserService"/>
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.RedisService" id="redisService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemCodeService" id="systemCodeService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemOrganizationService" id="systemOrganizationService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemParameterService" id="systemParameterService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.OldManInfoService" id="oldManInfoService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.AreaAdministrationareaBService" id="areaAdministrationareaBService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.PensionOldmanhomeBService" id="pensionOldmanhomeBService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.EvaluationService" id="evaluationService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.EvaluationPersonService" id="evaluationPersonService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.EvaluationOrganizationService" id="evaluationOrganizationService" />
+	<dubbo:reference interface="com.zkzy.zyportal.system.api.service.PgdaService" id="pgdaService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.EvaluationTablesService" id="evaluationTablesService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemTablePropertyService" id="systemTablePropertyService"/>
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.TableManagerService" id="tableManagerService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.QuartzService" id="quartzServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemRoleService" id="systemRoleServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ParameterService" id="parameterService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemMenuService" id="systemMenuServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.EditorService" id="editorService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemMachineService" id="systemMachineServiceImpl" />
+	<dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemLogService" id="systemLogService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SocialService" id="socialService"/>
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ISmsBookService" id="smsBookServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ISmsManService" id="smsManServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ISmsRecordService" id="smsRecordServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ISmsWarnService" id="smsWarnServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatAccountDevelopInfoService" id="weChatAccountDevelopInfoService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatTagService" id="weChatTagService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatUserService" id="weChatUserService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatKFMessageService" id="weChatKfMessageService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatMassMessageService" id="weChatMassMessageService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatMessageService" id="weChatMessageService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemUploadNodeService" id="systemUploadNodeService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.SystemNodefileService" id="systemNodefileService" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.FileOperationService" id="fileOperationServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.ChartService" id="chartServiceImpl" />
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WxNewsService" id="wxNewsService"/>
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.WeChatTemplateMessageService" id="weChatTemplateMessageService"/>
+
+    <!--吉林粮食-->
+    <dubbo:reference interface="com.zkzy.zyportal.system.api.service.grain.GrainProjectsprogressService" id="grainProjectsprogressServiceImpl"/>
+
+</beans>

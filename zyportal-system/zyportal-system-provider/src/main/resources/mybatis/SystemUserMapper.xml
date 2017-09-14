@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkzy.zyportal.system.provider.mapper.SystemUserMapper">
+    <resultMap id="BaseResultMap" type="com.zkzy.zyportal.system.api.entity.SystemUser" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="REALNAME" property="realname" jdbcType="VARCHAR" />
+        <result column="ORGANIZE_ID" property="organizeId" jdbcType="VARCHAR" />
+        <result column="ORGANIZE_NAME" property="organizeName" jdbcType="VARCHAR" />
+        <result column="DUTY_ID" property="dutyId" jdbcType="DECIMAL" />
+        <result column="TITLE_ID" property="titleId" jdbcType="DECIMAL" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="LANG" property="lang" jdbcType="VARCHAR" />
+        <result column="THEME" property="theme" jdbcType="VARCHAR" />
+        <result column="FIRST_VISIT" property="firstVisit" jdbcType="DATE" />
+        <result column="PREVIOUS_VISIT" property="previousVisit" jdbcType="DATE" />
+        <result column="LAST_VISITS" property="lastVisits" jdbcType="DATE" />
+        <result column="LOGIN_COUNT" property="loginCount" jdbcType="DECIMAL" />
+        <result column="ISEMPLOYEE" property="isemployee" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="ISONLINE" property="isonline" jdbcType="DECIMAL" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+        <result column="CREATER" property="creater" jdbcType="DECIMAL" />
+        <result column="MODIFYER" property="modifyer" jdbcType="DECIMAL" />
+        <result column="TEL" property="tel" jdbcType="VARCHAR" />
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+        <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+        <result column="AREA" property="area" jdbcType="VARCHAR" />
+        <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+        <result column="PHOTOURL" property="photourl" jdbcType="VARCHAR" />
+        <result column="SEX" property="sex" jdbcType="INTEGER" />
+        <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+        <result column="LNG" property="lng" jdbcType="VARCHAR" />
+        <result column="LAT" property="lat" jdbcType="VARCHAR" />
+        <result column="OSTYPE" property="ostype" jdbcType="VARCHAR" />
+        <result column="BROWSERTYPE" property="browsertype" jdbcType="VARCHAR" />
+        <result column="LNG" property="lng" jdbcType="VARCHAR"/>
+        <result column="LAT" property="lat" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <update id="updateLNGLAT">
+        UPDATE SYSTEM_USERS
+        <set>
+            LNG = #{lng},
+            LAT = #{lat}
+        </set>
+        WHERE USERNAME = #{username}
+    </update>
+
+    <sql id="selectColumns">
+        SELECT
+            a.ID,
+            a.USERNAME,
+            a.PASSWORD,
+            a.REALNAME,
+            a.ORGANIZE_ID,
+            a.ORGANIZE_NAME,
+            a.DUTY_ID,
+            a.TITLE_ID,
+            a.EMAIL,
+            a.LANG,
+            a.THEME,
+            a.FIRST_VISIT,
+            a.PREVIOUS_VISIT,
+            a.LAST_VISITS,
+            a.LOGIN_COUNT,
+            a.ISEMPLOYEE,
+            a.STATUS,
+            a.IP,
+            a.DESCRIPTION,
+            a.ISONLINE,
+            a.CREATE_DATE,
+            a.UPDATE_DATE,
+            a.CREATER,
+            a.MODIFYER,
+            a.TEL,
+            a.ROLE_NAME,
+            a.ROLE_ID,
+            a.AREA,
+            a.LOCATION,
+            a.PHOTOURL,
+            a.LNG,
+            a.LAT
+        FROM SYSTEM_USERS  a
+    </sql>
+
+    <!-- 根据id获得用户 -->
+    <select id="get" resultMap="BaseResultMap">
+        <include refid="selectColumns"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <!-- 根据登录名查询用户 -->
+    <select id="getByUserName" resultMap="BaseResultMap">
+        <include refid="selectColumns"/>
+        WHERE a.username = #{userName} and status='1'
+    </select>
+    <!-- 根据登录名查询用户忽略状态 -->
+    <select id="getByUserNameIgnoreStatus" resultMap="BaseResultMap">
+        <include refid="selectColumns"/>
+        WHERE a.username = #{userName}
+    </select>
+
+    <!-- 分页模糊查询用户信息 -->
+    <select id="findList" resultMap="BaseResultMap">
+        SELECT
+        a.ID,
+        a.USERNAME,
+        a.REALNAME,
+        a.ORGANIZE_ID,
+        a.ORGANIZE_NAME,
+        a.DUTY_ID,
+        a.TITLE_ID,
+        a.EMAIL,
+        a.LANG,
+        a.THEME,
+        a.FIRST_VISIT,
+        a.PREVIOUS_VISIT,
+        a.LAST_VISITS,
+        a.LOGIN_COUNT,
+        a.ISEMPLOYEE,
+        a.STATUS,
+        a.IP,
+        a.DESCRIPTION,
+        a.ISONLINE,
+        a.CREATE_DATE,
+        a.UPDATE_DATE,
+        a.CREATER,
+        a.MODIFYER,
+        a.TEL,
+        a.ROLE_NAME,
+        a.ROLE_ID,
+        a.AREA,
+        a.LOCATION,
+        a.PHOTOURL
+        a.LNG,
+        a.LAT
+        FROM SYSTEM_USERS  a
+        WHERE a.status = '1'
+        <if test="username != null and username != ''">
+            AND a.USERNAME like concat(concat('%',#{username}),'%')
+        </if>
+        <if test="realname != null and realname != ''">
+            AND a.REALNAME like concat(concat('%',#{realname}),'%')
+        </if>
+        <if test="email != null and email != ''">
+            AND a.EMAIL like concat(concat('%',#{email}),'%')
+        </if>
+        <if test="tel != null and tel != ''">
+            AND a.TEL like concat(concat('%',#{tel}),'%')
+        </if>
+        <if test="description != null and description != ''">
+            AND a.DESCRIPTION like concat(concat('%',#{description}),'%')
+        </if>
+        <if test="organizeName != null and organizeName != ''">
+            AND a.ORGANIZE_NAME like concat(concat('%',#{organizeName}),'%')
+        </if>
+        <if test="description != null and description != ''">
+            AND a.DESCRIPTION like concat(concat('%',#{description}),'%')
+        </if>
+
+    </select>
+
+    <!-- 插入用户 -->
+    <insert id="insert">
+        INSERT INTO SYSTEM_USERS (
+            id,
+            username,
+            password,
+            realname,
+            EMAIL,
+            TEL,
+            ORGANIZE_ID,
+            ORGANIZE_NAME,
+            DESCRIPTION,
+            status,
+            create_date,
+            update_date,
+            ROLE_NAME,
+            ROLE_ID,
+            AREA,
+            LOCATION,
+            PHOTOURL,
+            LNG,
+            LAT,
+        ) VALUES (
+            USER_ID.nextval,
+            #{username},
+            #{password},
+            #{realname},
+            #{email},
+            #{tel},
+            #{organizeId},
+            #{organizeName},
+            #{description},
+            #{status},
+            #{createDate},
+            #{updateDate},
+            #{roleName},
+            #{roleId},
+            #{area},
+            #{location},
+            #{photourl},
+            #{lng},
+            #{lat}
+        )
+    </insert>
+
+
+    <!-- 修改用户信息 -->
+    <update id="updateInfo">
+        UPDATE SYSTEM_USERS
+        <set>
+            USERNAME = #{username},
+            PASSWORD = #{password},
+            REALNAME = #{realname},
+            EMAIL = #{email},
+            TEL = #{tel},
+            ORGANIZE_ID = #{organizeId},
+            ORGANIZE_NAME = #{organizeName},
+            DESCRIPTION = #{description},
+            STATUS = #{status},
+            UPDATE_DATE= #{updateDate},
+            ROLE_NAME=#{roleName},
+            ROLE_ID=#{roleId},
+            IP = #{ip},
+            AREA=#{area},
+            LOCATION=#{location},
+            PHOTOURL=#{photourl},
+            LNG=#{lng},
+            LAT=#{lat}
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 删除用户 -->
+    <update id="deleteById">
+        DELETE SYSTEM_USERS
+        WHERE id = #{id}
+    </update>
+
+    <!-- 更新浏览器类型 -->
+    <update id="updateOSAndBroswer">
+        UPDATE SYSTEM_USERS
+        <set>
+            OSTYPE=#{0},
+            BROWSERTYPE=#{1}
+        </set>
+        WHERE USERNAME = #{2}
+    </update>
+
+    <!--冻结账户-->
+    <update id="freezeUser">
+        UPDATE SYSTEM_USERS
+        <set>
+            STATUS = 0
+        </set>
+        WHERE USERNAME = #{username}
+    </update>
+    <!-- 删除用户和角色关联表数据 -->
+    <delete id="deleteUserRole">
+        DELETE FROM sys_user_role
+        WHERE user_id = #{id}
+    </delete>
+
+    <delete id="deleteUser_RoleById">
+        DELETE FROM SYSTEM_USER_ROLE
+        WHERE USER_ID = #{id}
+    </delete>
+
+    <!--用户信息列表-->
+    <select id="userList" resultMap="BaseResultMap">
+        select * from SYSTEM_USERS
+        <!-- where status = '1' -->
+        where 1=1
+        ${_parameter}
+        ORDER BY create_date desc
+    </select>
+
+    <insert id="addUserInfo" parameterType="com.zkzy.zyportal.system.api.entity.SystemUser" >
+        insert into SYSTEM_USERS (ID, USERNAME, PASSWORD,
+        REALNAME, ORGANIZE_ID, ORGANIZE_NAME,
+        DUTY_ID, TITLE_ID, EMAIL,
+        LANG, THEME, FIRST_VISIT,
+        PREVIOUS_VISIT, LAST_VISITS, LOGIN_COUNT,
+        ISEMPLOYEE, STATUS, IP,
+        DESCRIPTION, ISONLINE, CREATE_DATE,
+        UPDATE_DATE, CREATER, MODIFYER,
+        TEL,ROLE_ID,ROLE_NAME,AREA,LOCATION,PHOTOURL,LNG,LAT)
+        values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{realname,jdbcType=VARCHAR}, #{organizeId,jdbcType=DECIMAL}, #{organizeName,jdbcType=VARCHAR},
+        #{dutyId,jdbcType=DECIMAL}, #{titleId,jdbcType=DECIMAL}, #{email,jdbcType=VARCHAR},
+        #{lang,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR}, #{firstVisit,jdbcType=DATE},
+        #{previousVisit,jdbcType=DATE}, #{lastVisits,jdbcType=DATE}, #{loginCount,jdbcType=DECIMAL},
+        #{isemployee,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR}, #{isonline,jdbcType=DECIMAL}, #{createDate,jdbcType=DATE},
+        #{updateDate,jdbcType=DATE}, #{creater,jdbcType=DECIMAL}, #{modifyer,jdbcType=DECIMAL},
+        #{tel,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR},#{roleName,jdbcType=VARCHAR},#{area,jdbcType=VARCHAR},
+        #{location,jdbcType=VARCHAR},#{photourl,jdbcType=VARCHAR},#{lng,jdbcType=VARCHAR},#{lat,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.zkzy.zyportal.system.api.entity.SystemUser" >
+        update SYSTEM_USERS
+        set USERNAME = #{username,jdbcType=VARCHAR},
+        PASSWORD = #{password,jdbcType=VARCHAR},
+        REALNAME = #{realname,jdbcType=VARCHAR},
+        ORGANIZE_ID = #{organizeId,jdbcType=VARCHAR},
+        ORGANIZE_NAME = #{organizeName,jdbcType=VARCHAR},
+        DUTY_ID = #{dutyId,jdbcType=DECIMAL},
+        TITLE_ID = #{titleId,jdbcType=DECIMAL},
+        EMAIL = #{email,jdbcType=VARCHAR},
+        LANG = #{lang,jdbcType=VARCHAR},
+        THEME = #{theme,jdbcType=VARCHAR},
+        FIRST_VISIT = #{firstVisit,jdbcType=DATE},
+        PREVIOUS_VISIT = #{previousVisit,jdbcType=DATE},
+        LAST_VISITS = #{lastVisits,jdbcType=DATE},
+        LOGIN_COUNT = #{loginCount,jdbcType=DECIMAL},
+        ISEMPLOYEE = #{isemployee,jdbcType=DECIMAL},
+        STATUS = #{status,jdbcType=VARCHAR},
+        IP = #{ip,jdbcType=VARCHAR},
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+        ISONLINE = #{isonline,jdbcType=DECIMAL},
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+        UPDATE_DATE = #{updateDate,jdbcType=DATE},
+        CREATER = #{creater,jdbcType=DECIMAL},
+        MODIFYER = #{modifyer,jdbcType=DECIMAL},
+        TEL = #{tel,jdbcType=VARCHAR},
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+        AREA=#{area,jdbcType=VARCHAR},
+        LOCATION=#{location,jdbcType=VARCHAR},
+        PHOTOURL=#{photourl,jdbcType=VARCHAR},
+        LNG=#{lng,jdbcType=VARCHAR},
+        lat=#{lat,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from SYSTEM_USERS
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="selectAllOsTypes" resultType="com.zkzy.zyportal.system.api.viewModel.OsType">
+SELECT
+	OSTYPE,COUNT(*) AS COUNT
+FROM
+	SYSTEM_USERS
+WHERE 1=1
+GROUP BY OSTYPE
+ORDER BY COUNT
+    </select>
+    <select id="selectBrowInnerTypes" resultType="com.zkzy.zyportal.system.api.viewModel.BrowserType">
+        SELECT
+	 REGEXP_SUBSTR(BROWSERTYPE,'[^,]+',1,1,'i') AS BROWSERTYPE,COUNT(*) AS COUNT
+FROM
+	SYSTEM_USERS
+WHERE 1=1
+GROUP BY REGEXP_SUBSTR(BROWSERTYPE,'[^,]+',1,1,'i')
+ORDER BY REGEXP_SUBSTR(BROWSERTYPE,'[^,]+',1,1,'i') DESC
+    </select>
+    <select id="selectBrowOuterTypes" resultType="com.zkzy.zyportal.system.api.viewModel.BrowserType">
+     SELECT
+	 BROWSERTYPE,COUNT(*) AS COUNT
+FROM
+	SYSTEM_USERS
+WHERE 1=1
+GROUP BY BROWSERTYPE
+ORDER BY REGEXP_SUBSTR(BROWSERTYPE,'[^,]+',1,1,'i') DESC
+    </select>
+
+    <!-- 查询所有用户人数 -->
+    <select id="getAllUserNum" resultMap="BaseResultMap">
+        SELECT *
+        FROM SYSTEM_USERS
+    </select>
+
+    <!-- 查询用户男女人数 -->
+    <select id="getSexNum" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT *
+        FROM SYSTEM_USERS
+        WHERE SEX = #{sex,jdbcType=INTEGER}
+    </select>
+
+    <!-- 查询用户年龄分布人数 -->
+    <select id="getAgeNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT *
+        FROM SYSTEM_USERS
+        WHERE 1=1
+        ${_parameter}
+    </select>
+
+</mapper>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkzy.zyportal.system.provider.mapper.WeChatMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.zkzy.zyportal.system.api.entity.WeChatMessage" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TOUSER" property="touser" jdbcType="VARCHAR" />
+    <result column="IS_TO_ALL" property="isToAll" jdbcType="VARCHAR" />
+    <result column="TAGID" property="tagid" jdbcType="VARCHAR" />
+    <result column="MSGTYPE" property="msgtype" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="MEDIA_ID" property="mediaId" jdbcType="VARCHAR" />
+    <result column="FILE_URL" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="MEDIA_FILE_URL" property="mediaFileUrl" jdbcType="VARCHAR" />
+    <result column="MPNEWS_ID" property="mpnewsId" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="MUSICURL" property="musicurl" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="PICURL" property="picurl" jdbcType="VARCHAR" />
+    <result column="FROMUSER" property="fromuser" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="WECHATID" property="wechatid" jdbcType="VARCHAR" />
+    <result column="SENDTIME" property="sendtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zkzy.zyportal.system.api.entity.WeChatMessage" extends="BaseResultMap" >
+    <result column="CONTENTS" property="contents" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TOUSER, IS_TO_ALL, TAGID, MSGTYPE, CONTENT, MEDIA_ID, FILE_URL, MEDIA_FILE_URL, 
+    MPNEWS_ID, TITLE, DESCRIPTION, MUSICURL, AUTHOR, URL, PICURL, FROMUSER, TYPE, WECHATID, 
+    SENDTIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENTS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from WX_SENDMESSAGE_B
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, TOUSER, IS_TO_ALL,
+      TAGID, MSGTYPE, CONTENT,
+      MEDIA_ID, FILE_URL, MEDIA_FILE_URL,
+      MPNEWS_ID, TITLE, DESCRIPTION,
+      MUSICURL, AUTHOR, URL,
+      PICURL, FROMUSER, TYPE,
+      WECHATID, SENDTIME，CONTENTS
+    from WX_SENDMESSAGE_B
+    where 1=1
+    ${_parameter}
+    ORDER BY SENDTIME ASC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WX_SENDMESSAGE_B
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zkzy.zyportal.system.api.entity.WeChatMessage" >
+    insert into WX_SENDMESSAGE_B (ID, TOUSER, IS_TO_ALL, 
+      TAGID, MSGTYPE, CONTENT, 
+      MEDIA_ID, FILE_URL, MEDIA_FILE_URL, 
+      MPNEWS_ID, TITLE, DESCRIPTION, 
+      MUSICURL, AUTHOR, URL, 
+      PICURL, FROMUSER, TYPE, 
+      WECHATID, SENDTIME, CONTENTS)
+    values (#{id,jdbcType=VARCHAR}, #{touser,jdbcType=VARCHAR}, #{isToAll,jdbcType=VARCHAR}, 
+      #{tagid,jdbcType=VARCHAR}, #{msgtype,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{mediaId,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, #{mediaFileUrl,jdbcType=VARCHAR}, 
+      #{mpnewsId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{musicurl,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{picurl,jdbcType=VARCHAR}, #{fromuser,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+      #{wechatid,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR}, #{contents,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zkzy.zyportal.system.api.entity.WeChatMessage" >
+    insert into WX_SENDMESSAGE_B
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="touser != null" >
+        TOUSER,
+      </if>
+      <if test="isToAll != null" >
+        IS_TO_ALL,
+      </if>
+      <if test="tagid != null" >
+        TAGID,
+      </if>
+      <if test="msgtype != null" >
+        MSGTYPE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="mediaId != null" >
+        MEDIA_ID,
+      </if>
+      <if test="fileUrl != null" >
+        FILE_URL,
+      </if>
+      <if test="mediaFileUrl != null" >
+        MEDIA_FILE_URL,
+      </if>
+      <if test="mpnewsId != null" >
+        MPNEWS_ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="musicurl != null" >
+        MUSICURL,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="picurl != null" >
+        PICURL,
+      </if>
+      <if test="fromuser != null" >
+        FROMUSER,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="wechatid != null" >
+        WECHATID,
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME,
+      </if>
+      <if test="contents != null" >
+        CONTENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="touser != null" >
+        #{touser,jdbcType=VARCHAR},
+      </if>
+      <if test="isToAll != null" >
+        #{isToAll,jdbcType=VARCHAR},
+      </if>
+      <if test="tagid != null" >
+        #{tagid,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null" >
+        #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null" >
+        #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaFileUrl != null" >
+        #{mediaFileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mpnewsId != null" >
+        #{mpnewsId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fromuser != null" >
+        #{fromuser,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="wechatid != null" >
+        #{wechatid,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zkzy.zyportal.system.api.entity.WeChatMessage" >
+    update WX_SENDMESSAGE_B
+    <set >
+      <if test="touser != null" >
+        TOUSER = #{touser,jdbcType=VARCHAR},
+      </if>
+      <if test="isToAll != null" >
+        IS_TO_ALL = #{isToAll,jdbcType=VARCHAR},
+      </if>
+      <if test="tagid != null" >
+        TAGID = #{tagid,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null" >
+        MSGTYPE = #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaId != null" >
+        MEDIA_ID = #{mediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaFileUrl != null" >
+        MEDIA_FILE_URL = #{mediaFileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mpnewsId != null" >
+        MPNEWS_ID = #{mpnewsId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        MUSICURL = #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        PICURL = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fromuser != null" >
+        FROMUSER = #{fromuser,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="wechatid != null" >
+        WECHATID = #{wechatid,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME = #{sendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        CONTENTS = #{contents,jdbcType=BLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zkzy.zyportal.system.api.entity.WeChatMessage" >
+    update WX_SENDMESSAGE_B
+    set TOUSER = #{touser,jdbcType=VARCHAR},
+      IS_TO_ALL = #{isToAll,jdbcType=VARCHAR},
+      TAGID = #{tagid,jdbcType=VARCHAR},
+      MSGTYPE = #{msgtype,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      MEDIA_ID = #{mediaId,jdbcType=VARCHAR},
+      FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+      MEDIA_FILE_URL = #{mediaFileUrl,jdbcType=VARCHAR},
+      MPNEWS_ID = #{mpnewsId,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      MUSICURL = #{musicurl,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      PICURL = #{picurl,jdbcType=VARCHAR},
+      FROMUSER = #{fromuser,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=INTEGER},
+      WECHATID = #{wechatid,jdbcType=VARCHAR},
+      SENDTIME = #{sendtime,jdbcType=VARCHAR},
+      CONTENTS = #{contents,jdbcType=BLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

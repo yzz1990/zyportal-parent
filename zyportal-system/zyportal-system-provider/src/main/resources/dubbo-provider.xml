@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <!-- dubbo注解扫描包名 -->
+    <!--<dubbo:annotation package="com.zkzy.zyportal.system.provider"/>-->
+
+    <dubbo:protocol name="dubbo"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ISystemService"
+                   ref="systemService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ITripUserService"
+                   ref="tripUserService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ICaptchaService"
+                   ref="captchaService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ISystemUserService"
+                   ref="systemUserService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.RedisService"
+                   ref="redisService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemCodeService"
+                   ref="systemCodeService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemOrganizationService"
+                   ref="systemOrganizationService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemParameterService"
+                   ref="systemParameterService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.OldManInfoService"
+                   ref="oldManInfoService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.AreaAdministrationareaBService"
+                   ref="areaAdministrationareaBService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.PensionOldmanhomeBService"
+                   ref="pensionOldmanhomeBService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.PgdaService"
+                   ref="pgdaService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.EvaluationPersonService"
+                   ref="evaluationPersonService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.EvaluationOrganizationService"
+                   ref="evaluationOrganizationService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.EvaluationService"
+                   ref="evaluationService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.EvaluationTablesService"
+                   ref="evaluationTablesService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemTablePropertyService"
+                   ref="systemTablePropertyService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.TableManagerService"
+                   ref="tableManagerService" protocol="dubbo" timeout="15000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ParameterService"
+                   ref="parameterService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.QuartzService"
+                   ref="quartzServiceImpl" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemRoleService"
+                   ref="systemRoleServiceImpl" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.EditorService"
+                   ref="editorService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemMenuService"
+                   ref="systemMenuServiceImpl" protocol="dubbo" timeout="5000"/>
+
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemMachineService"
+                   ref="systemMachineServiceImpl" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemLogService"
+                   ref="systemLogServiceImpl" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SocialService"
+                   ref="socialService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ISmsBookService"
+                   ref="smsBookServiceImpl" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ISmsManService"
+                   ref="smsManServiceImpl" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ISmsRecordService"
+                   ref="smsRecordServiceImpl" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ISmsWarnService"
+                   ref="smsWarnServiceImpl" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatAccountDevelopInfoService"
+                   ref="weChatAccountDevelopInfoService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatTagService"
+                   ref="weChatTagService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatUserService"
+                   ref="weChatUserService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemUploadNodeService"
+                   ref="systemUploadNodeService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.SystemNodefileService"
+                   ref="systemNodefileService" protocol="dubbo" timeout="5000"/>
+
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatKFMessageService"
+                   ref="weChatKfMessageService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatMassMessageService"
+                   ref="weChatMassMessageService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatMessageService"
+                   ref="weChatMessageService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.FileOperationService"
+                   ref="fileOperationServiceImpl" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.ChartService"
+                   ref="chartServiceImpl" protocol="dubbo" timeout="15000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WxNewsService"
+                   ref="wxNewsService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.WeChatTemplateMessageService"
+                   ref="weChatTemplateMessageService" protocol="dubbo" timeout="5000"/>
+
+    <!--吉林粮食-->
+    <dubbo:service interface="com.zkzy.zyportal.system.api.service.grain.GrainProjectsprogressService"
+                   ref="grainProjectsprogressServiceImpl" protocol="dubbo" timeout="5000"/>
+
+</beans>

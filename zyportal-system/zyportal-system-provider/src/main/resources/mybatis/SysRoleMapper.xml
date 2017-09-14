@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkzy.zyportal.system.provider.mapper.SysRoleMapper">
+
+    <sql id="selectColumns">
+        SELECT
+            a.ID,
+            a.NAME,
+            a.STATUS,
+            a.CREATEDATE,
+            a.UPDATEDATE,
+            a.DESCRIPTION,
+            a.SORT
+        FROM SYSTEM_ROLE a
+    </sql>
+
+    <select id="findListByUserId" resultType="com.zkzy.zyportal.system.api.entity.SystemRole">
+        <include refid="selectColumns"/>
+        LEFT JOIN SYSTEM_USER_ROLE ur ON ur.ROLE_ID = a.ID
+        WHERE a.enabled = '1'
+        AND ur.USER_ID = #{userId}
+        ORDER BY a.CREATEDATE
+    </select>
+
+    <!-- 根据编号获得角色 -->
+    <select id="get" resultType="com.zkzy.zyportal.system.api.entity.SysRole">
+        <include refid="selectColumns"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <!-- 分页查询角色信息 -->
+    <select id="findList" resultType="com.zkzy.zyportal.system.api.entity.SysRole">
+        <include refid="selectColumns"/>
+        WHERE a.del_flag = '0'
+        <if test="name != null and name != ''">
+            AND a.name like CONCAT('%', #{name}, '%')
+        </if>
+        <if test="remarks != null and remarks != ''">
+            AND a.remarks like CONCAT('%', #{remarks}, '%')
+        </if>
+        ORDER BY a.create_date
+    </select>
+
+    <!-- 查询全部角色 -->
+    <select id="findAllList" resultType="com.zkzy.zyportal.system.api.entity.SysRole">
+        <include refid="selectColumns"/>
+        WHERE a.del_flag = '0'
+        ORDER BY a.create_date
+    </select>
+
+    <!-- 插入角色 -->
+    <insert id="insert">
+        INSERT INTO sys_role (
+            id,
+            name,
+            enabled,
+            create_date,
+            update_date,
+            remarks
+        ) VALUES (
+            #{id},
+            #{name},
+            #{enabled},
+            #{createDate},
+            #{updateDate},
+            #{remarks}
+        )
+    </insert>
+
+    <!-- 更新角色 -->
+    <update id="update">
+        UPDATE sys_role
+        <set>
+            name = #{name},
+            enabled = #{enabled},
+            update_date = #{updateDate},
+            remarks = #{remarks}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <!-- 删除角色 -->
+    <update id="deleteById">
+        UPDATE sys_role
+        SET del_flag = '1'
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteRoleMenu">
+        DELETE FROM sys_role_menu
+        WHERE role_id = #{id}
+    </delete>
+
+    <insert id="insertRoleMenu">
+        INSERT INTO sys_role_menu(role_id, menu_id)
+        <foreach collection="menus" item="menu" separator=" union all ">
+            SELECT #{id}, #{menu.id} FROM dual
+        </foreach>
+    </insert>
+
+</mapper>
